@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+    <link rel="stylesheet" href="/src/css/style.css">
+    <link rel="icon" type="image/x-icon" href="/resources/kat.jpg">
+</head>
+
+<body onload="pageSelector()">
+    <div class="nav">
+        <img class="nav__logo" src="/resources/efteling-logo.svg">
+        <ul class="nav__links">
+            <a href="index.html">
+                <li id="index" class="nav__item">Home</li>
+            </a>
+            <a href="about-us.html">
+                <li id="about-us" class="nav__item">Over ons</li>
+            </a>
+            <a href="tickets.html">
+                <li id="tickets" class="nav__item">Tickets</li>
+            </a>
+        </ul>
+    </div>
+    <div class="container">
+        <h1 class="container__header">TICKETS</h1>
+    </div>
+    <div class="ticket-page">
+        <div class="calendar">
+            <div class="calendar-header">
+                <span class="month-picker" id="month-picker">April</span>
+                <div class="year-picker">
+                    <span class="year-change" id="prev-year">
+                        <pre><</pre>
+                    </span>
+                    <span id="year">2022</span>
+                    <span class="year-change" id="next-year">
+                        <pre>></pre>
+                    </span>
+                </div>
+            </div>
+            <div class="calendar-body">
+                <div class="calendar-week-day">
+                    <div>Sun</div>
+                    <div>Mon</div>
+                    <div>Tue</div>
+                    <div>Wed</div>
+                    <div>Thu</div>
+                    <div>Fri</div>
+                    <div>Sat</div>
+                </div>
+                <div class="calendar-days"></div>
+            </div>
+
+            <div class="month-list"></div>
+        </div>
+        <div class="prijs-tekst">
+            <h2>Prijs</h2>
+        </div>
+    </div>
+</body>
+<script src="/src/js/script.js"></script>
+
+</html>
