@@ -1,94 +1,120 @@
 function pageSelector() {
     let page = window.location.href;
-    let startIndex = page.lastIndexOf("html/")+5;
+    let startIndex = page.lastIndexOf("html/") + 5;
     let endIndex = page.lastIndexOf(".html");
     let result = page.slice(startIndex, endIndex);
     var x = document.getElementById(result);
     x.classList.add("active");
 }
 
-let calendar = document.querySelector('.calendar')
+let babyAantal = 0;
+let kindAantal = 0;
+let tienerAantal = 0;
+let volwassenAantal = 0;
+let seniorAantal = 0;
+let totaalprijs = 0;
+let gekocht = false;
 
-const month_names = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-
-isLeapYear = (year) => {
-    return (year % 4 === 0 && year % 100 !== 0 && year % 400 !== 0) || (year % 100 === 0 && year % 400 ===0)
+function onTicketClick(id) {
+    gekocht = false;
+    if (id == "babyKnop") {
+        babyAantal += 1;
+        document.getElementById("prijs__baby").innerHTML = "Baby tickets: " + babyAantal + "x " + "<a id='babyMin' class='lijstKnop' onclick='onMinClick(this.id)'>-</a>";
+    }
+    if (id == "kindKnop") {
+        kindAantal += 1;
+        document.getElementById("prijs__kind").innerHTML = "Kinder tickets: " + kindAantal + "x " + "<a id='kindMin' class='lijstKnop' onclick='onMinClick(this.id)'>-</a>";
+    }
+    if (id == "tienerKnop") {
+        tienerAantal += 1;
+        document.getElementById("prijs__tiener").innerHTML = "Tiener tickets: " + tienerAantal + "x " + "<a id='tienerMin' class='lijstKnop' onclick='onMinClick(this.id)'>-</a>";
+    }
+    if (id == "volwassenKnop") {
+        volwassenAantal += 1;
+        document.getElementById("prijs__volwassen").innerHTML = "Volwassen tickets: " + volwassenAantal + "x " + "<a id='volwassenMin' class='lijstKnop' onclick='onMinClick(this.id)'>-</a>";
+    }
+    if (id == "seniorKnop") {
+        seniorAantal += 1;
+        document.getElementById("prijs__senior").innerHTML = "Senioren tickets: " + seniorAantal + "x " + "<a id='seniorMin' class='lijstKnop' onclick='onMinClick(this.id)'>-</a>";
+    }
+    prijsberekening();
 }
 
-getFebDays = (year) => {
-    return isLeapYear(year) ? 29 : 28
-}
-
-generateCalendar = (month, year) => {
-
-    let calendar_days = calendar.querySelector('.calendar-days')
-    let calendar_header_year = calendar.querySelector('#year')
-
-    let days_of_month = [31, getFebDays(year), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-
-    calendar_days.innerHTML = ''
-
-    let currDate = new Date()
-    if (month > 11 || month < 0) month = currDate.getMonth()
-    if (!year) year = currDate.getFullYear()
-
-    let curr_month = `${month_names[month]}`
-    month_picker.innerHTML = curr_month
-    calendar_header_year.innerHTML = year
-
-    // get first day of month
-    
-    let first_day = new Date(year, month, 1)
-
-    for (let i = 0; i <= days_of_month[month] + first_day.getDay() - 1; i++) {
-        let day = document.createElement('div')
-        if (i >= first_day.getDay()) {
-            day.classList.add('calendar-day-hover')
-            day.innerHTML = i - first_day.getDay() + 1
-            day.innerHTML += `<span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>`
-            if (i - first_day.getDay() + 1 === currDate.getDate() && year === currDate.getFullYear() && month === currDate.getMonth()) {
-                day.classList.add('curr-date')
-            }
+function prijsberekening() {
+    let babyPrijs = babyAantal * 10
+    let kindPrijs = kindAantal * 15
+    let tienerPrijs = tienerAantal * 20
+    let volwassenPrijs = volwassenAantal * 25
+    let seniorPrijs = seniorAantal * 20
+    totaalprijs = babyPrijs + kindPrijs + tienerPrijs + volwassenPrijs + seniorPrijs
+    if (totaalprijs > 0) {
+        document.getElementById("prijs__totaal").innerHTML = "Totaalprijs: € " + totaalprijs + "<a onclick='KoopNu()'><div class='lijstKnop'>KOOP</div></a>";
+    }
+    if (totaalprijs <= 0) {
+        if (!gekocht) {
+            document.getElementById("prijs__totaal").innerHTML = "Selecteer uw kaartjes";
+        } else {
+            document.getElementById("prijs__totaal").innerHTML = "Bedankt voor uw aankoop. Veel plezier!"
         }
-        calendar_days.appendChild(day)
     }
 }
 
-let month_list = calendar.querySelector('.month-list')
-
-month_names.forEach((e, index) => {
-    let month = document.createElement('div')
-    month.innerHTML = `<div data-month="${index}">${e}</div>`
-    month.querySelector('div').onclick = () => {
-        month_list.classList.remove('show')
-        curr_month.value = index
-        generateCalendar(index, curr_year.value)
+function onMinClick(id) {
+    gekocht = false;
+    if (id == "babyMin") {
+        babyAantal -= 1;
+        if (babyAantal > 0) {
+            document.getElementById("prijs__baby").innerHTML = "Baby tickets: " + babyAantal + "x " + "<a id='babyMin' class='lijstKnop' onclick='onMinClick(this.id)'>-</a>";
+        } else {
+            document.getElementById("prijs__baby").innerHTML = "";
+        }
     }
-    month_list.appendChild(month)
-})
-
-let month_picker = calendar.querySelector('#month-picker')
-
-month_picker.onclick = () => {
-    month_list.classList.add('show')
+    if (id == "kindMin") {
+        kindAantal -= 1;
+        if (kindAantal > 0) {
+            document.getElementById("prijs__kind").innerHTML = "Kinder tickets: " + kindAantal + "x " + "<a id='kindMin' class='lijstKnop' onclick='onMinClick(this.id)'>-</a>";
+        } else {
+            document.getElementById("prijs__kind").innerHTML = "";
+        }
+    }
+    if (id == "tienerMin") {
+        tienerAantal -= 1;
+        if (tienerAantal > 0) {
+            document.getElementById("prijs__tiener").innerHTML = "Tiener tickets: " + tienerAantal + "x " + "<a id='tienerMin' class='lijstKnop' onclick='onMinClick(this.id)'>-</a>";
+        } else {
+            document.getElementById("prijs__tiener").innerHTML = "";
+        }
+    }
+    if (id == "volwassenMin") {
+        volwassenAantal -= 1;
+        if (volwassenAantal > 0) {
+            document.getElementById("prijs__volwassen").innerHTML = "Volwassen tickets: " + volwassenAantal + "x " + "<a id='volwassenMin' class='lijstKnop' onclick='onMinClick(this.id)'>-</a>";
+        } else {
+            document.getElementById("prijs__volwassen").innerHTML = "";
+        }
+    }
+    if (id == "seniorMin") {
+        seniorAantal -= 1;
+        if (seniorAantal > 0) {
+            document.getElementById("prijs__senior").innerHTML = "Senioren tickets: " + seniorAantal + "x " + "<a id='seniorMin' class='lijstKnop' onclick='onMinClick(this.id)'>-</a>";
+        } else {
+            document.getElementById("prijs__senior").innerHTML = "";
+        }
+    }
+    prijsberekening();
 }
 
-let currDate = new Date()
-
-let curr_month = {value: currDate.getMonth()}
-let curr_year = {value: currDate.getFullYear()}
-
-generateCalendar(curr_month.value, curr_year.value)
-
-document.querySelector('#prev-year').onclick = () => {
-    --curr_year.value
-    generateCalendar(curr_month.value, curr_year.value)
-}
-
-document.querySelector('#next-year').onclick = () => {
-    ++curr_year.value
-    generateCalendar(curr_month.value, curr_year.value)
+function KoopNu() {
+    babyAantal = 0;
+    kindAantal = 0;
+    tienerAantal = 0;
+    volwassenAantal = 0;
+    seniorAantal = 0;
+    document.getElementById("prijs__baby").innerHTML = "";
+    document.getElementById("prijs__kind").innerHTML = "";
+    document.getElementById("prijs__tiener").innerHTML = "";
+    document.getElementById("prijs__volwassen").innerHTML = "";
+    document.getElementById("prijs__senior").innerHTML = "";
+    gekocht = true;
+    prijsberekening();
 }

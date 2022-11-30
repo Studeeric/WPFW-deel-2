@@ -12,7 +12,7 @@
 
 <body onload="pageSelector()">
     <div class="nav">
-        <img class="nav__logo" src="/resources/efteling-logo.svg">
+        <img class="nav__logo" src="/resources/efteling-logo.svg" href="index.html">
         <ul class="nav__links">
             <a href="index.html">
                 <li id="index" class="nav__item">Home</li>
@@ -28,38 +28,35 @@
     <div class="container">
         <h1 class="container__header">TICKETS</h1>
     </div>
-    <div class="ticket-page">
-        <div class="calendar">
-            <div class="calendar-header">
-                <span class="month-picker" id="month-picker">April</span>
-                <div class="year-picker">
-                    <span class="year-change" id="prev-year">
-                        <pre><</pre>
-                    </span>
-                    <span id="year">2022</span>
-                    <span class="year-change" id="next-year">
-                        <pre>></pre>
-                    </span>
-                </div>
-            </div>
-            <div class="calendar-body">
-                <div class="calendar-week-day">
-                    <div>Sun</div>
-                    <div>Mon</div>
-                    <div>Tue</div>
-                    <div>Wed</div>
-                    <div>Thu</div>
-                    <div>Fri</div>
-                    <div>Sat</div>
-                </div>
-                <div class="calendar-days"></div>
-            </div>
-
-            <div class="month-list"></div>
+    <div class="purchasing">
+        <div class="purchasing__ticket">
+            <a class="purchasing__ticket__button" id="babyKnop" onclick="onTicketClick(this.id)">0 - 3 jaar</a>
+            <div class="purchasing__ticket__price">€ 10</div>
         </div>
-        <div class="prijs-tekst">
-            <h2>Prijs</h2>
+        <div class="purchasing__ticket">
+            <a class="purchasing__ticket__button" id="kindKnop" onclick="onTicketClick(this.id)">4 - 11 jaar</a>
+            <div class="purchasing__ticket__price">€ 15</div>
         </div>
+        <div class="purchasing__ticket">
+            <a class="purchasing__ticket__button" id="tienerKnop" onclick="onTicketClick(this.id)">12 - 17 jaar</a>
+            <div class="purchasing__ticket__price">€ 20</div>
+        </div>
+        <div class="purchasing__ticket">
+            <a class="purchasing__ticket__button" id="volwassenKnop" onclick="onTicketClick(this.id)">18+ </a>
+            <div class="purchasing__ticket__price">€ 25</div>
+        </div>
+        <div class="purchasing__ticket">
+            <a class="purchasing__ticket__button" id="seniorKnop" onclick="onTicketClick(this.id)">65+ </a>
+            <div class="purchasing__ticket__price">€ 20</div>
+        </div>
+    </div>
+    <div class="prijsveld">
+        <div id="prijs__baby"></div>
+        <div id="prijs__kind"></div>
+        <div id="prijs__tiener"></div>
+        <div id="prijs__volwassen"></div>
+        <div id="prijs__senior"></div>
+        <div id="prijs__totaal">Selecteer uw kaartjes</div>
     </div>
 </body>
 <script src="/src/js/script.js"></script>
