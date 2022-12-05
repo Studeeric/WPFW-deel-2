@@ -4,6 +4,7 @@ function pageSelector() {
     let endIndex = page.lastIndexOf(".html");
     let result = page.slice(startIndex, endIndex);
     var x = document.getElementById(result);
+    getWeatherReport();
     x.classList.add("active");
 }
 
@@ -117,4 +118,22 @@ function KoopNu() {
     document.getElementById("prijs__senior").innerHTML = "";
     gekocht = true;
     prijsberekening();
+}
+
+async function getWeatherReport() {
+    var output = document.getElementById("weerbericht__container");
+    let y = await fetch("https://api.open-meteo.com/v1/forecast?latitude=51.66&longitude=5.03&hourly=temperature_2m,rain&daily=precipitation_sum,rain_sum&current_weather=true&timezone=auto")
+                    .then(res => res.json())
+    console.log(y);
+    let temperature = y.current_weather.temperature;
+    let time = y.current_weather.time;
+    let windspeed = y.current_weather.windspeed;
+    output.innerHTML = `
+    <div class="weerbericht">
+        <h2>Weerbericht:</h2>
+        <p class="time"> Tijd: ${time}</p>
+        <p class="temperatuur"> Temperatuur: ${temperature} °C</p>
+        <p class="windsnelheid"> Windsnelheid: ${windspeed} Km/u</p>
+    </div>
+    `;
 }

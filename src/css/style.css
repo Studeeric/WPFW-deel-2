@@ -162,4 +162,10 @@ ul {
 .lijstKnop:hover {
   color: #fb4934;
   background-color: #fabd2f;
+}
+
+.weerbericht {
+  width: 20em;
+  margin: auto;
+  padding: 1em 0 3em 0;
 }/*# sourceMappingURL=style.css.map */
